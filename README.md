@@ -23,6 +23,10 @@ Before we can get going, we'll need to import the usual libraries.  In the cell 
 
 ```python
 # Import necessary libraries below
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
 
 ```
 
@@ -31,7 +35,7 @@ Now, let's get started by reading in the data from the `'titanic.csv'` file and 
 
 ```python
 # Use pandas to load the csv file
-df = None
+df = pd.read_csv('titanic.csv)
 
 ```
 
@@ -46,6 +50,7 @@ We'll start by checking to see if the DataFrame contains **any** missing values 
 
 ```python
 # Your code here
+df.isnull().sum().any()
 
 ```
 
@@ -74,7 +79,7 @@ dtype: int64
 
 ```python
 # Your code here
-
+df.isna().sum()
 ```
 
 Now that we know how many missing values exist in each column, we can make some decisions about how to deal with them.  
@@ -94,7 +99,7 @@ In the cell below:
 
 ```python
 # Your code here
-
+df["Cabin].unique()
 ```
 
 With this many missing values, it's probably best for us to just drop this column completely.
@@ -107,7 +112,7 @@ In the cell below:
 
 ```python
 # Your code here
-
+df.drop(["Cabin"],axis=1,inplace=True)
 ```
 
 ### Computing placeholder values
@@ -122,9 +127,9 @@ In the cell below:
 
 ```python
 # Your code here
-
+plt.histplot(x=df["Age",bins=80]
 ```
-
+df['Age'].mean()
 From the visualization above, we can see the data has a slightly positive skew. 
 
 In the cell below, replace all missing values in the `'Age'` column with the median of the column.  **Do not hard code this value -- use the methods from pandas or numpy to make this easier.**  Do this replacement in place on the DataFrame. 
@@ -132,7 +137,8 @@ In the cell below, replace all missing values in the `'Age'` column with the med
 
 ```python
 # Your code here
-
+age_median = df['Age'].median()
+df['Age'].fillna(age_median)
 ```
 
 Now that we've replaced the values in the `'Age'` column, let's confirm that they've been replaced.  
@@ -142,7 +148,7 @@ In the cell below, check how many null values remain in the dataset.
 
 ```python
 # Your code here
-
+df.isna().sum()
 ```
 
 Now we need to deal with the two pesky missing values in the `'Embarked'` column.  
